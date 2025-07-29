@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Cors
+Flask-Bcrypt
+Flask-JWT-Extended
+python-dotenv
+marshmallow-sqlalchemy
+psycopg2-binary # For PostgreSQL
