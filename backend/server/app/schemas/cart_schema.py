@@ -9,8 +9,11 @@ class CartItemSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
         load_instance = True
 
+from .user_schema import UserSchema
+
 class CartSchema(ma.SQLAlchemyAutoSchema):
     items = ma.List(ma.Nested(CartItemSchema))
+    user = ma.Nested(UserSchema, only=("id", "first_name", "last_name"))
     class Meta:
         model = Cart
         include_fk = True

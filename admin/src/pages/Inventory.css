@@ -1,0 +1,45 @@
+.inventory-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.inventory-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.inventory-form input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.inventory-form button {
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.inventory-form button[type="button"] {
+  background: #6c757d;
+}
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.inventory-table th, .inventory-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+.inventory-table th {
+  background: #f8f9fa;
+}
+.inventory-table tr:nth-child(even) {
+  background: #f2f2f2;
+}
+.error {
+  color: red;
+  margin-bottom: 1rem;
+}

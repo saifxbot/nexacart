@@ -14,6 +14,10 @@ inventories_schema = InventorySchema(many=True)
 @admin_required
 def create_inventory():
     data = request.get_json()
+    # Prevent duplicate inventory for the same product_id
+    existing = Inventory.query.filter_by(product_id=data['product_id']).first()
+    if existing:
+        return jsonify({'error': 'Inventory for this product already exists.'}), 400
     inventory = Inventory(product_id=data['product_id'], quantity=data['quantity'])
     db.session.add(inventory)
     db.session.commit()
@@ -41,6 +45,8 @@ def update_inventory(inventory_id):
     data = request.get_json()
     if 'quantity' in data:
         inventory.quantity = data['quantity']
+    if 'product_id' in data:
+        inventory.product_id = data['product_id']
     db.session.commit()
     return inventory_schema.dump(inventory)
 

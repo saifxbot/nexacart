@@ -25,7 +25,14 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     jwt.init_app(app)
     ma.init_app(app)
-    cors.init_app(app, resources={r"/api/*": {"origins": "*"}}) # Allow all origins for /api/ routes
+    cors.init_app(
+        app,
+        resources={r"/api/*": {"origins": ["http://localhost:3000"]}},
+        supports_credentials=True,
+        expose_headers="*",
+        allow_headers=["Content-Type", "Authorization", "X-Requested-With", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
+        methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+    )
 
 
     # Import and register blueprints
@@ -39,6 +46,8 @@ def create_app(config_class=Config):
     from .api.inventory_routes import inventory_bp
     from .api.promotion_routes import promotion_bp
     from .api.blog_routes import blog_bp
+    from .api.user_routes import user_bp
+    from .api.review_routes import review_bp
 
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(product_bp, url_prefix='/api')
@@ -50,6 +59,8 @@ def create_app(config_class=Config):
     app.register_blueprint(inventory_bp, url_prefix='/api')
     app.register_blueprint(promotion_bp, url_prefix='/api')
     app.register_blueprint(blog_bp, url_prefix='/api')
+    app.register_blueprint(review_bp, url_prefix='/api/reviews')
+    app.register_blueprint(user_bp, url_prefix='/api/admin')
     # If any other resource blueprints are registered with a different prefix, update them to '/api' as well.
 
     return app

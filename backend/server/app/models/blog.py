@@ -7,3 +7,4 @@ class Blog(db.Model):
     content = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    product_ids = db.Column(db.String(255))  # Comma-separated product IDs for shoppable blog

@@ -57,3 +57,8 @@ def remove_from_cart(user_id, product_id):
         return cart, "Item removed"
     
     return None, "Item not in cart"
+
+# Admin: Get all carts
+def get_all_carts():
+    from app.models.cart import Cart
+    return Cart.query.all()

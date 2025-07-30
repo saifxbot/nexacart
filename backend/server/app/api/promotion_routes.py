@@ -14,7 +14,12 @@ promotions_schema = PromotionSchema(many=True)
 @admin_required
 def create_promotion():
     data = request.get_json()
-    promotion = Promotion(title=data['title'], image_url=data.get('image_url'), description=data.get('description'))
+    promotion = Promotion(
+        title=data['title'],
+        discount=data.get('discount'),
+        image_url=data.get('image_url'),
+        description=data.get('description')
+    )
     db.session.add(promotion)
     db.session.commit()
     return promotion_schema.dump(promotion), 201
@@ -41,6 +46,8 @@ def update_promotion(promotion_id):
     data = request.get_json()
     if 'title' in data:
         promotion.title = data['title']
+    if 'discount' in data:
+        promotion.discount = data['discount']
     if 'image_url' in data:
         promotion.image_url = data['image_url']
     if 'description' in data:

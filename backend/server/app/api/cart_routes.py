@@ -52,6 +52,24 @@ def remove_from_cart():
         return jsonify({"message": message}), 404
     return jsonify(cart_schema.dump(cart))
 
+@cart_bp.route('/admin', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_all_carts():
+    # Allow CORS preflight
+    if request.method == 'OPTIONS':
+        return '', 204
+    # Only allow admin users
+    user_id = get_jwt_identity()
+    from app.models.user import User
+    user = User.query.get(user_id)
+    if not user or not user.is_admin:
+        return jsonify({'message': 'Admin access required'}), 403
+    from app.services.cart_service import get_all_carts
+    carts = get_all_carts()
+    from app.schemas.cart_schema import CartSchema
+    cart_schema = CartSchema(many=True)
+    return jsonify(cart_schema.dump(carts))
+
 # CLEAR cart
 @cart_bp.route('/clear', methods=['DELETE'])
 @jwt_required()

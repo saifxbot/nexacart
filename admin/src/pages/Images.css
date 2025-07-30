@@ -1,0 +1,50 @@
+.images-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.image-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.image-form input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.image-form button {
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.image-form button[type="button"] {
+  background: #6c757d;
+}
+.images-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.images-table th, .images-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+.images-table th {
+  background: #f8f9fa;
+}
+.images-table tr:nth-child(even) {
+  background: #f2f2f2;
+}
+.images-table img {
+  display: block;
+  max-width: 80px;
+  max-height: 60px;
+}
+.error {
+  color: red;
+  margin-bottom: 1rem;
+}

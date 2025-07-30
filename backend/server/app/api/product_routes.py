@@ -32,7 +32,7 @@ def search_products():
     products = products.all()
     return jsonify(products_schema.dump(products))
 
-# ADD product review
+    # ADD product review
 @product_bp.route('/<int:product_id>/reviews', methods=['POST'])
 @jwt_required()
 def add_review(product_id):
@@ -83,7 +83,7 @@ def create_product():
             price=data['price'],
             stock_quantity=data.get('stock_quantity', 0),
             image_url=data.get('image_url'),
-            category_id=data.get('category_id')
+            # category_id removed
         )
         db.session.add(new_product)
         db.session.commit()
@@ -116,7 +116,7 @@ def update_product(product_id):
     data = request.get_json()
     if not data:
         return jsonify({"message": "No input data provided"}), 400
-    for field in ['name', 'description', 'price', 'stock_quantity', 'image_url', 'category_id']:
+    for field in ['name', 'description', 'price', 'stock_quantity', 'image_url']:
         if field in data:
             setattr(product, field, data[field])
     db.session.commit()

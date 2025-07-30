@@ -11,6 +11,25 @@ order_bp = Blueprint('order_bp', __name__)
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)
 
+
+# ADMIN: Get all orders
+@order_bp.route('/admin', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_all_orders():
+    if request.method == 'OPTIONS':
+        return '', 204
+    # Only allow admin users for GET
+    from flask_jwt_extended import get_jwt_identity
+    from app.models.user import User
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user or not user.is_admin:
+        return jsonify({'message': 'Admin access required'}), 403
+    orders = Order.query.order_by(Order.created_at.desc()).all()
+    return jsonify(orders_schema.dump(orders))
+
+
+
 @order_bp.route('/create', methods=['POST'])
 @jwt_required()
 def create_order():
